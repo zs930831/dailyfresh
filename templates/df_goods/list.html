@@ -1,0 +1,105 @@
+{% extends "base_info.html" %}
+{% block head %}
+{% endblock head %}
+{% block body %}
+    <div class="navbar_con">
+        <div class="navbar clearfix">
+            <div class="subnav_con fl">
+                <h1>全部商品分类</h1>
+                <span></span>
+                <ul class="subnav">
+                    <li><a href="#" class="fruit">新鲜水果</a></li>
+                    <li><a href="#" class="seafood">海鲜水产</a></li>
+                    <li><a href="#" class="meet">猪牛羊肉</a></li>
+                    <li><a href="#" class="egg">禽类蛋品</a></li>
+                    <li><a href="#" class="vegetables">新鲜蔬菜</a></li>
+                    <li><a href="#" class="ice">速冻食品</a></li>
+                </ul>
+            </div>
+            <ul class="navlist fl">
+                <li><a href="">首页</a></li>
+                <li class="interval">|</li>
+                <li><a href="">手机生鲜</a></li>
+                <li class="interval">|</li>
+                <li><a href="">抽奖</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="breadcrumb">
+        <a href="#">全部分类</a>
+        <span>></span>
+        <a href="#">新鲜水果</a>
+    </div>
+
+    <div class="main_wrap clearfix">
+        <div class="l_wrap fl clearfix">
+            <div class="new_goods">
+                <h3>新品推荐</h3>
+                <ul>
+                    {% for i in news %}
+                        <li>
+                            <a href="#"><img src="/static/{{ i.gpic }}"></a>
+                            <h4><a href="#">{{ i.gname }}</a></h4>
+                            <div class="prize">￥{{ i.gprice }}</div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <div class="r_wrap fr clearfix">
+            <div class="sort_bar">
+                <a href="/list{{ typeinfo.id }}_1_1/"
+                        {% if sort == "1" %}
+                   class="active"
+                        {% endif %}
+                >默认</a>
+                <a href="/list{{ typeinfo.id }}_1_2/"
+                        {% if sort == "2" %}
+                   class="active"
+                        {% endif %}
+                >价格</a>
+                <a href="/list{{ typeinfo.id }}_1_3/"
+                        {% if sort == "3" %}
+                   class="active"
+                        {% endif %}
+                >人气</a>
+            </div>
+
+            <ul class="goods_type_list clearfix">
+                {% for i in page %}
+                    <li>
+                        <a href="detail.html"><img src="/static/{{ i.gpic }}"></a>
+                        <h4><a href="detail.html">{{ i.gname }}</a></h4>
+                        <div class="operate">
+                            <span class="prize">￥{{ i.gprice }}</span>
+                            <span class="unit">{{ i.gprice }}/{{ i.gunit }}</span>
+                            <a href="#" class="add_goods" title="加入购物车"></a>
+                        </div>
+                    </li>
+                {% endfor %}
+
+            </ul>
+
+            <div class="pagenation">
+                {% if page.has_previous %}
+                    <a href="/list{{ typeinfo.id }}_{{ page.previous_page_number }}_{{ sort }}/">
+                        <上一页
+                    </a>
+                {% endif %}
+                {% for page1 in paginator.page_range %}
+                    {% if page1 == page.number %}
+                        <a href="/list{{ typeinfo.id }}_{{ page1 }}_{{ sort }}/" class="active">{{ page1 }}</a>
+                    {% else %}
+                        <a href="/list{{ typeinfo.id }}_{{ page1 }}_{{ sort }}/">{{ page1 }}</a>
+                    {% endif %}
+
+                {% endfor %}
+                {% if page.has_next %}
+                    <a href="/list{{ typeinfo.id }}_{{ page.next_page_number }}_{{ sort }}/">下一页></a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock body %}

@@ -1,0 +1,36 @@
+{% extends "base_info.html" %}
+{% block head %}
+    <script src="/static/js/jquery-1.12.4.min.js"></script>
+{% endblock head %}
+{% block body %}
+    <div class="main_con clearfix">
+        <div class="left_menu_con clearfix">
+            <h3>用户中心</h3>
+            <ul>
+                <li><a href="/user/info" class="active">· 个人信息</a></li>
+                <li><a href="/user/center">· 全部订单</a></li>
+                <li><a href="/user/address">· 收货地址</a></li>
+            </ul>
+        </div>
+        <div class="right_content clearfix">
+            <div class="info_con clearfix">
+                <h3 class="common_title2">基本信息</h3>
+                <ul class="user_info_list">
+                    <li><span>用户名：</span>{{ username }}</li>
+                    <li><span>联系方式：</span>{{ user.uphonenum }}</li>
+                    <li><span>联系地址：</span>{{ user.uaddress }}</li>
+                </ul>
+            </div>
+
+            <h3 class="common_title2">最近浏览</h3>
+            <div class="has_view_list">
+                <ul class="goods_type_list clearfix">
+                    {% for i in listnum  %}
+                    {% include "store_show.html" with num=i %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+{% endblock body %}
