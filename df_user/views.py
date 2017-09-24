@@ -2,6 +2,7 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect,HttpResponseRedirect,HttpResponse
 from df_user import models
 from df_goods import models as m1
+from df_user  import user_decrator as ud
 import hashlib
 
 
@@ -47,6 +48,14 @@ def login(request):
     c={"user_error1":0,"pwd_error1":0,"title":'用户登录','username':uname}
     return render(request, "ds_user/login.html",c)
 
+def logout(request):
+    #清除用户所有的session
+    # clear()：清除所有会话
+    # flush()：删除当前的会话数据并删除会话的Cookie
+    # del request.session['_id']：删除会话
+    request.session.flush()
+    return redirect('/')
+
 def login_handler(request):
     post=request.POST
     uname=post.get('username')
@@ -54,15 +63,14 @@ def login_handler(request):
     checkd=post.get('check',0)
     user=models.UserInfo.objects.filter(uname=uname)
     if len(user)==1:#存在用户名
-
         # 密码加密
         s1 = hashlib.sha1()
         # 注意update()必须指定要加密的字符串的字符编码
         s1.update(upwd.encode("utf-8"))
         upwd2 = s1.hexdigest()
         if upwd2==user[0].upwd:#密码正确
-            print("pwd right")
-            result=HttpResponseRedirect('/user/info/')
+            url=request.COOKIES.get('url','/')
+            result=HttpResponseRedirect(url)
             if checkd!=0:
                 result.set_cookie('username',uname)
             else:
@@ -71,15 +79,15 @@ def login_handler(request):
             request.session['user_name']=uname
             return result
         else:
-            print("pwd error")
+            #print("pwd error")
             c = {"user_error1": 0, "pwd_error1":1, "title": '用户登录', 'username':uname,'upwd':upwd}
             return render(request, "ds_user/login.html", c)
 
     else:
-        print("user error")
+        #print("user error")
         c = {"user_error1": 1, "pwd_error1": 0, "title": '用户登录', 'username': uname,'upwd':upwd}
         return render(request, "ds_user/login.html", c)
-
+@ud.login_dec
 def info(request):
     #listnum=[i for i in range(3,8)]
     uname=request.session['user_name']
@@ -87,9 +95,11 @@ def info(request):
     #print(user[0].id)
     c={"title": '用户信息',"username":uname,"user":user[0],"listnum":range(3,8),'page_name':1}
     return render(request,'ds_user/user_center_info.html',c)
+@ud.login_dec
 def center(request):
     c={"title": '用户订单','page_name':1}
     return render(request,'ds_user/user_center_order.html',c)
+@ud.login_dec
 def adress(request):
     user = models.UserInfo.objects.filter(id=request.session['user_id'])
     if request.method=="POST":
@@ -102,6 +112,7 @@ def adress(request):
         return redirect('/user/address')
     c={"title": '用户地址',"user":user[0],'page_name':1}
     return render(request,'ds_user/user_center_site.html',c)
+
 
 def orm(request):
     for i in range(1,7):

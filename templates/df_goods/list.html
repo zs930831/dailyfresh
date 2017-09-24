@@ -27,9 +27,9 @@
     </div>
 
     <div class="breadcrumb">
-        <a href="#">全部分类</a>
+        <a href="/">全部分类</a>
         <span>></span>
-        <a href="#">新鲜水果</a>
+        <a href="/list{{ typeinfo.id }}_1_1">{{ typeinfo.ttitle }}</a>
     </div>
 
     <div class="main_wrap clearfix">
@@ -39,8 +39,8 @@
                 <ul>
                     {% for i in news %}
                         <li>
-                            <a href="#"><img src="/static/{{ i.gpic }}"></a>
-                            <h4><a href="#">{{ i.gname }}</a></h4>
+                            <a href="/detail-{{ i.id }}/"><img src="/static/{{ i.gpic }}"></a>
+                            <h4><a href="/detail-{{ i.id }}/">{{ i.gname }}</a></h4>
                             <div class="prize">￥{{ i.gprice }}</div>
                         </li>
                     {% endfor %}
@@ -70,8 +70,8 @@
             <ul class="goods_type_list clearfix">
                 {% for i in page %}
                     <li>
-                        <a href="detail.html"><img src="/static/{{ i.gpic }}"></a>
-                        <h4><a href="detail.html">{{ i.gname }}</a></h4>
+                        <a href="/detail-{{ i.id }}/"><img src="/static/{{ i.gpic }}"></a>
+                        <h4><a href="/detail-{{ i.id }}/">{{ i.gname }}</a></h4>
                         <div class="operate">
                             <span class="prize">￥{{ i.gprice }}</span>
                             <span class="unit">{{ i.gprice }}/{{ i.gunit }}</span>

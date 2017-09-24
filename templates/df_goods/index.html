@@ -22,7 +22,7 @@
         <div class="navbar">
             <h1 class="fl">全部商品分类</h1>
             <ul class="navlist fl">
-                <li><a href="">首页</a></li>
+                <li><a href="/">首页</a></li>
                 <li class="interval">|</li>
                 <li><a href="">手机生鲜</a></li>
                 <li class="interval">|</li>
@@ -33,12 +33,12 @@
 
     <div class="center_con clearfix">
         <ul class="subnav fl">
-            <li><a href="#model01" class="fruit">新鲜水果</a></li>
-            <li><a href="#model02" class="seafood">海鲜水产</a></li>
-            <li><a href="#model03" class="meet">猪牛羊肉</a></li>
-            <li><a href="#model04" class="egg">禽类蛋品</a></li>
-            <li><a href="#model05" class="vegetables">新鲜蔬菜</a></li>
-            <li><a href="#model06" class="ice">速冻食品</a></li>
+            <li><a href="/list1_1_1/" class="fruit">新鲜水果</a></li>
+            <li><a href="/list2_1_1/" class="seafood">海鲜水产</a></li>
+            <li><a href="/list3_1_1/" class="meet">猪牛羊肉</a></li>
+            <li><a href="/list4_1_1/" class="egg">禽类蛋品</a></li>
+            <li><a href="/list5_1_1/" class="vegetables">新鲜蔬菜</a></li>
+            <li><a href="/list6_1_1/" class="ice">速冻食品</a></li>
         </ul>
         <div class="slide fl">
             <ul class="slide_pics">
@@ -63,7 +63,7 @@
             <div class="subtitle fl">
                 <span>|</span>
                 {% for i in type01 %}
-                <a href="/{{ i.id }}/">{{ i.gname }}</a>
+                <a href="/detail-{{ i.id }}/">{{ i.gname }}</a>
                 {% endfor %}
             </div>
             <a href="/list1_1_1/" class="goods_more fr" id="fruit_more">查看更多 ></a>
@@ -73,8 +73,8 @@
             <ul class="goods_list fl">
                 {% for i in type0 %}
                 <li>
-                    <h4><a href="/{{ i.id }}/">{{ i.gname|slice:"10" }}...</a></h4>
-                    <a href="/{{ i.id }}/"><img src="/static/{{ i.gpic }}"></a>
+                    <h4><a href="/detail-{{ i.id }}/">{{ i.gname|slice:"10" }}...</a></h4>
+                    <a href="/detail-{{ i.id }}/"><img src="/static/{{ i.gpic }}"></a>
                     <div class="prize">¥{{ i.gprice }}</div>
                 </li>
                 {% endfor %}
@@ -88,7 +88,7 @@
             <div class="subtitle fl">
                 <span>|</span>
                 {% for i in type11 %}
-                <a href="/{{ i.id }}/">{{ i.gname }}</a>
+                <a href="/detail-{{ i.id }}/">{{ i.gname }}</a>
                 {% endfor %}
             </div>
             <a href="/list2_1_1/" class="goods_more fr" id="">查看更多 ></a>
@@ -99,8 +99,8 @@
             <ul class="goods_list fl">
                 {% for i in type1 %}
                 <li>
-                    <h4><a href="/{{ i.id }}/">{{ i.gname|slice:"10" }}...</a></h4>
-                    <a href="/{{ i.id }}/"><img src="/static/{{ i.gpic }}"></a>
+                    <h4><a href="/detail-{{ i.id }}/">{{ i.gname|slice:"10" }}...</a></h4>
+                    <a href="/detail-{{ i.id }}/"><img src="/static/{{ i.gpic }}"></a>
                     <div class="prize">¥{{ i.gprice }}</div>
                 </li>
                 {% endfor %}
@@ -114,7 +114,7 @@
             <div class="subtitle fl">
                 <span>|</span>
                 {% for i in type21 %}
-                <a href="/{{ i.id }}/">{{ i.gname }}</a>
+                <a href="/detail-{{ i.id }}/">{{ i.gname }}</a>
                 {% endfor %}
             </div>
             <a href="/list3_1_1/" class="goods_more fr" id="">查看更多 ></a>
@@ -125,8 +125,8 @@
             <ul class="goods_list fl">
                 {% for i in type2 %}
                 <li>
-                    <h4><a href="/{{ i.id }}/">{{ i.gname|slice:"10" }}...</a></h4>
-                    <a href="/{{ i.id }}/"><img src="/static/{{ i.gpic }}"></a>
+                    <h4><a href="/detail-{{ i.id }}/">{{ i.gname|slice:"10" }}...</a></h4>
+                    <a href="/detail-{{ i.id }}/"><img src="/static/{{ i.gpic }}"></a>
                     <div class="prize">¥{{ i.gprice }}</div>
                 </li>
                 {% endfor %}
@@ -140,7 +140,7 @@
             <div class="subtitle fl">
                 <span>|</span>
                 {% for i in type31 %}
-                <a href="/{{ i.id }}/">{{ i.gname }}</a>
+                <a href="/detail-{{ i.id }}/">{{ i.gname }}</a>
                 {% endfor %}
             </div>
             <a href="/list4_1_1/" class="goods_more fr" id="">查看更多 ></a>
@@ -151,8 +151,8 @@
             <ul class="goods_list fl">
                 {% for i in type3 %}
                 <li>
-                    <h4><a href="/{{ i.id }}/">{{ i.gname|slice:"10" }}...</a></h4>
-                    <a href="/{{ i.id }}/"><img src="/static/{{ i.gpic }}"></a>
+                    <h4><a href="/detail-{{ i.id }}/">{{ i.gname|slice:"10" }}...</a></h4>
+                    <a href="/detail-{{ i.id }}/"><img src="/static/{{ i.gpic }}"></a>
                     <div class="prize">¥{{ i.gprice }}</div>
                 </li>
                 {% endfor %}
@@ -166,7 +166,7 @@
             <div class="subtitle fl">
                 <span>|</span>
                 {% for i in type41 %}
-                <a href="/{{ i.id }}/">{{ i.gname }}</a>
+                <a href="/detail-{{ i.id }}/">{{ i.gname }}</a>
                 {% endfor %}
             </div>
             <a href="/list5_1_1/" class="goods_more fr" id="">查看更多 ></a>
@@ -177,8 +177,8 @@
             <ul class="goods_list fl">
                 {% for i in type4 %}
                 <li>
-                    <h4><a href="/{{ i.id }}/">{{ i.gname|slice:"10" }}...</a></h4>
-                    <a href="/{{ i.id }}/"><img src="/static/{{ i.gpic }}"></a>
+                    <h4><a href="/detail-{{ i.id }}/">{{ i.gname|slice:"10" }}...</a></h4>
+                    <a href="/detail-{{ i.id }}/"><img src="/static/{{ i.gpic }}"></a>
                     <div class="prize">¥{{ i.gprice }}</div>
                 </li>
                 {% endfor %}
@@ -192,7 +192,7 @@
             <div class="subtitle fl">
                 <span>|</span>
                 {% for i in type51 %}
-                <a href="/{{ i.id }}/">{{ i.gname }}</a>
+                <a href="/detail-{{ i.id }}/">{{ i.gname }}</a>
                 {% endfor %}
             </div>
             <a href="/list6_1_1/" class="goods_more fr" id="">查看更多 ></a>
@@ -203,8 +203,8 @@
             <ul class="goods_list fl">
                 {% for i in type5 %}
                 <li>
-                    <h4><a href="/{{ i.id }}/">{{ i.gname|slice:"10" }}...</a></h4>
-                    <a href="/{{ i.id }}/"><img src="/static/{{ i.gpic }}"></a>
+                    <h4><a href="/detail-{{ i.id }}/">{{ i.gname|slice:"10" }}...</a></h4>
+                    <a href="/detail-{{ i.id }}/"><img src="/static/{{ i.gpic }}"></a>
                     <div class="prize">¥{{ i.gprice }}</div>
                 </li>
                 {% endfor %}

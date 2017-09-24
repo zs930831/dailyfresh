@@ -5,6 +5,7 @@ from df_user import views
 urlpatterns = [
     url(r'^register/$',views.register),
     url(r'^login/$',views.login),
+    url(r'^logout/$',views.logout),
     url(r'^register_yz/$',views.register_yz),
     url(r'^register_handler/$',views.register_handler),
     url(r'^login_handler/$',views.login_handler),
