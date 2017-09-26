@@ -24,5 +24,6 @@ urlpatterns = [
     url(r'^list', include("df_goods.urls")),
     url(r'^detail-(\d+)/', v.detail),
     url(r'^tinymce/', include('tinymce.urls')),
+    url(r'^cart/', include("df_cart.urls")),
 ]
 

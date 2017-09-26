@@ -49,8 +49,8 @@
                 <div class="num_name fl">数 量：</div>
                 <div class="num_add fl">
                     <input type="text" class="num_show fl" value="1">
-                    <a href="#" class="add fr">+</a>
-                    <a href="#" class="minus fr">-</a>
+                    <a href="javascript:;" class="add fr">+</a>
+                    <a href="javascript:;" class="minus fr">-</a>
                 </div>
             </div>
             <div class="total">总价：<em id="tprice">{{ goods.gprice }}元</em></div>
@@ -118,6 +118,16 @@
         {##}
         {#                });#}
         {#        });#}
+        $('#add_cart').click(function () {
+            var cnum=parseInt($('.num_show').val());
+            $.ajax({
+                url: '/cart/add{{ goods.id }}'+'_'+cnum+'/',
+                type: 'get',
+                success: function (data) {
+                    $('.goods_count').text(data.count);
+                }
+            });
+        });
         $('.add').click(function () {
             add();
         });
@@ -142,6 +152,7 @@
         }
 
         $(function () {
+
             $('.num_show').blur(function () {
                 num = parseInt($('.num_show').val());
                 if (num <= 1) {
@@ -152,8 +163,8 @@
                 total = num * price;
                 $('.num_show').val(num);
                 $('#tprice').text(total.toFixed(2) + "元");
-{#                $('#tprice').text(10.0+ "元");#}
-                $('.add_cart').attr('href', '/cart/add/')
+                {#                $('#tprice').text(10.0+ "元");#}
+
             })
         });
     </script>

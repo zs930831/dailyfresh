@@ -1,10 +1,16 @@
 from django.shortcuts import render
 from df_goods import models
+from df_cart import models as cm
 from django.core.paginator import Paginator
 
 
 # Create your views here.
 def index(request):
+    ckinds=0
+    uid=request.session.get('user_id',None)
+    if uid!=None:
+        ckinds=cm.Cart.objects.filter(user_id=uid).count()
+    request.session['ckinds']=ckinds
     type = models.TypeInfo.objects.all()
     # 按照最新，最新的id最大
     type0 = type[0].goodsinfo_set.order_by('-id')[0:4]
@@ -26,7 +32,8 @@ def index(request):
          'type2': type2, 'type21': type21,
          'type3': type3, 'type31': type31,
          'type4': type4, 'type41': type41,
-         'type5': type5, 'type51': type51}
+         'type5': type5, 'type51': type51,
+        }
     return render(request, "df_goods/index.html", c)
 
 
@@ -39,6 +46,19 @@ def detail(request, gid):
          'goods':goods,"news":news}
     resp = render(request, "df_goods/detail.html", c)
     #下面给用户中心使用
+    goods_ids=request.COOKIES.get('goods_ids',None)
+    goods_id=str(goods.id)
+    if goods_ids!=None:
+        goods_list=goods_ids.split(',')
+        if goods_id in goods_list:
+            goods_list.remove(goods_id)#保存过的删除
+        goods_list.insert(0,goods_id)#最近浏览的添加到第一个
+        if len(goods_list)>5:
+            del goods_list[5]
+        goods_ids=','.join(goods_list)#拼接为字符串
+    else:#没有浏览记录
+        goods_ids=goods.id
+    goods_ids=resp.set_cookie('goods_ids',goods_ids)#注意set_cookies的用法
     return resp
 
 

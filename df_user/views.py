@@ -92,13 +92,22 @@ def info(request):
     #listnum=[i for i in range(3,8)]
     uname=request.session['user_name']
     user=models.UserInfo.objects.filter(id=request.session['user_id'])
+    goods_ids=request.COOKIES.get('goods_ids',None)
+    goods_list=[]
+    if goods_ids!=None:
+        for i in goods_ids.split(','):
+            goods_list.append(m1.GoodsInfo.objects.get(pk=int(i)))
     #print(user[0].id)
-    c={"title": '用户信息',"username":uname,"user":user[0],"listnum":range(3,8),'page_name':1}
+    c={"title": '用户信息',"username":uname,"user":user[0],
+       "listnum":range(3,8),'page_name':1,
+       "goods_list":goods_list}
     return render(request,'ds_user/user_center_info.html',c)
+
 @ud.login_dec
 def center(request):
     c={"title": '用户订单','page_name':1}
     return render(request,'ds_user/user_center_order.html',c)
+
 @ud.login_dec
 def adress(request):
     user = models.UserInfo.objects.filter(id=request.session['user_id'])

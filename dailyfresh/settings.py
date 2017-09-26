@@ -22,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 's(w1--0+%2(j#+yjn&o#c4lp)i%o4hz**#hkyaip24k3m2at4&'
 
-# SECURITY WARNING: don't run with debug turned on in production!
+# SECURITY WARNING: don'templatetags run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'df_user',
     'df_goods',
+    'df_cart',
     'tinymce',
 ]
 

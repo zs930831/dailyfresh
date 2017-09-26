@@ -40,8 +40,8 @@
 
 		try {
 			// Replace server-side written pluses with spaces.
-			// If we can't decode the cookie, ignore it, it's unusable.
-			// If we can't parse the cookie, ignore it, it's unusable.
+			// If we can'templatetags decode the cookie, ignore it, it's unusable.
+			// If we can'templatetags parse the cookie, ignore it, it's unusable.
 			s = decodeURIComponent(s.replace(pluses, ' '));
 			return config.json ? JSON.parse(s) : s;
 		} catch(e) {}
@@ -93,7 +93,7 @@
 				break;
 			}
 
-			// Prevent storing a cookie that we couldn't decode.
+			// Prevent storing a cookie that we couldn'templatetags decode.
 			if (!key && (cookie = read(cookie)) !== undefined) {
 				result[name] = cookie;
 			}
