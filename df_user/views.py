@@ -33,7 +33,7 @@ def register_handler(request):
     s1.update(upwd1.encode("utf-8"))
     upwd2 = s1.hexdigest()
     # 在数据库里面创建新用户
-    models.UserInfo.objects.create(
+    UserInfo.objects.create(
         uname=uname,
         upwd=upwd2,
         uemail=uemail,
@@ -43,7 +43,7 @@ def register_handler(request):
 
 def register_yz(request):
     username = request.GET.get('username')
-    count = models.UserInfo.objects.filter(uname=username).count()
+    count = UserInfo.objects.filter(uname=username).count()
     return JsonResponse({"count": count})
 
 
@@ -67,7 +67,7 @@ def login_handler(request):
     uname = post.get('username')
     upwd = post.get('pwd')
     checkd = post.get('check', 0)
-    user = models.UserInfo.objects.filter(uname=uname)
+    user = UserInfo.objects.filter(uname=uname)
     if len(user) == 1:  # 存在用户名
         # 密码加密
         s1 = hashlib.sha1()
