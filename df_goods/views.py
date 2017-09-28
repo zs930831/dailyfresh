@@ -63,7 +63,6 @@ def detail(request, gid):
 
 
 def list(request, tid, pindex, sort):
-    print(tid, pindex, sort)
     typeinfo = models.TypeInfo.objects.get(pk=int(tid))
     news = typeinfo.goodsinfo_set.order_by('-id')[0:2]
     if sort == "1":  # 默认最新
@@ -81,3 +80,18 @@ def list(request, tid, pindex, sort):
          'good_list': good_list, "paginator": paginator, "sort": sort,
          'page': page}
     return render(request, "df_goods/list.html", c)
+
+def cart_count(request):
+    if request.session.has_key('user_id'):
+        return cm.Cart.objects.filter(user_id=request.session['user_id']).count
+    else:
+        return 0
+
+from haystack.views import SearchView
+class MySearchView(SearchView):
+    def extra_context(self):
+        content=super(MySearchView,self).extra_context()
+        content['title']='搜索'
+        content['guest_cart']=1
+        content['cart_count']=cart_count(self.request)
+        return content

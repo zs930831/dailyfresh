@@ -12,5 +12,7 @@ register = template.Library()
 
 #filter只能有2个参数，可以放在if后面
 @register.filter
-def cf(a1,a2):
-    return(int(a1)*int(a2))
+def lenCart(a1,a2):
+    return(len(a1))
+
+

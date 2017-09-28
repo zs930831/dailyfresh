@@ -43,20 +43,26 @@
     {% if page_name == 1 %}
         {% if cart_name == 1 %}
             <div class="sub_page_name fl">|&nbsp;&nbsp;&nbsp;&nbsp;购物车</div>
+        {% elif cart_name == 2 %}
+            <div class="sub_page_name fl">|&nbsp;&nbsp;&nbsp;&nbsp;提交订单</div>
         {% else %}
             <div class="sub_page_name fl">|&nbsp;&nbsp;&nbsp;&nbsp;用户中心</div>
         {% endif %}
         <div class="search_con fr">
-            <input type="text" class="input_text fl" name="" placeholder="搜索商品">
-            <input type="button" class="input_btn fr" name="" value="搜索">
+            <form action="/search/" method="get" target="_blank">
+                <input type="text" class="input_text fl" name="q" placeholder="搜索商品">
+                <input type="submit" class="input_btn fr" name="" value="搜索">
+            </form>
         </div>
     {% endif %}
 
 
     {% if guest_cart == 1 %}
         <div class="search_con fl">
-            <input type="text" class="input_text fl" name="" placeholder="搜索商品">
-            <input type="button" class="input_btn fr" name="" value="搜索">
+            <form action="/search/" method="get" target="_blank">
+                <input type="text" class="input_text fl" name="q" placeholder="搜索商品">
+                <input type="submit" class="input_btn fr" name="" value="搜索">
+            </form>
         </div>
         <div class="guest_cart fr">
             <a href="/cart/" class="cart_name fl" id="show_count">我的购物车</a>

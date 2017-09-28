@@ -6,4 +6,6 @@ urlpatterns = [
     url(r'^$', views.index),
     url(r'^(P?<gid>\d+)/$', views.detail),
     url(r'^(\d+)_(\d+)_(\d+)/$', views.list),
+    url(r'search/', views.MySearchView()),
+
 ]

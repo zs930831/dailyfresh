@@ -1,85 +1,101 @@
 {% extends "base_info.html" %}
 {% block body %}
-	<div class="main_con clearfix">
-		<div class="left_menu_con clearfix">
-			<h3>用户中心</h3>
-			<ul>
-				<li><a href="/user/info" >· 个人信息</a></li>
-				<li><a href="/user/center" class="active">· 全部订单</a></li>
-				<li><a href="/user/address">· 收货地址</a></li>
-			</ul>
-		</div>
-		<div class="right_content clearfix">
-				<h3 class="common_title2">全部订单</h3>
-				<ul class="order_list_th w978 clearfix">
-					<li class="col01">2016-8-21 17:36:24</li>
-					<li class="col02">订单号：56872934</li>
-					<li class="col02 stress">未支付</li>		
-				</ul>
+    <div class="main_con clearfix">
+        <div class="left_menu_con clearfix">
+            <h3>用户中心</h3>
+            <ul>
+                <li><a href="/user/info">· 个人信息</a></li>
+                <li><a href="/user/center/1/" class="active">· 全部订单</a></li>
+                <li><a href="/user/address">· 收货地址</a></li>
+            </ul>
+        </div>
+        <div class="right_content clearfix">
+            <h3 class="common_title2">全部订单</h3>
+            {% for p in page %}
+                <ul class="order_list_th w978 clearfix">
+                    <li class="col01">{{ p.0.order.odate }}</li>
+                    <li class="col02">订单号：{{ p.0.order_id }}</li>
+                    {% if p.0.order.oIsPay == 0 %}
+                        <li class="col02 stress">未支付</li>
+                    {% else %}
+                        <li class="col02 stress">已支付</li>
+                    {% endif %}
 
-				<table class="order_list_table w980">
-					<tbody>
-						<tr>
-							<td width="55%">
-								<ul class="order_goods_list clearfix">					
-									<li class="col01"><img src="images/goods02.jpg"></li>
-									<li class="col02">嘎啦苹果嘎啦苹果<em>11.80元/500g</em></li>	
-									<li class="col03">1</li>
-									<li class="col04">11.80元</li>	
-								</ul>
-								<ul class="order_goods_list clearfix">					
-									<li class="col01"><img src="images/goods02.jpg"></li>
-									<li class="col02">嘎啦苹果嘎啦苹果<em>11.80元/500g</em></li>	
-									<li class="col03">1</li>
-									<li class="col04">11.80元</li>	
-								</ul>
-							</td>
-							<td width="15%">33.60元</td>
-							<td width="15%">待付款</td>
-							<td width="15%"><a href="#" class="oper_btn">去付款</a></td>
-						</tr>
-					</tbody>
-				</table>
-				
-				<ul class="order_list_th w978 clearfix">
-					<li class="col01">2016-8-21 17:36:24</li>
-					<li class="col02">订单号：56872934</li>
-					<li class="col02 stress">已支付</li>			
-				</ul>
-				<table class="order_list_table w980">
-					<tbody>
-						<tr>
-							<td width="55%">
-								<ul class="order_goods_list clearfix">					
-									<li class="col01"><img src="images/goods02.jpg"></li>
-									<li class="col02">嘎啦苹果嘎啦苹果<em>11.80元/500g</em></li>	
-									<li class="col03">1</li>
-									<li class="col04">11.80元</li>	
-								</ul>
-								<ul class="order_goods_list clearfix">					
-									<li class="col01"><img src="images/goods02.jpg"></li>
-									<li class="col02">嘎啦苹果嘎啦苹果<em>11.80元/500g</em></li>	
-									<li class="col03">1</li>
-									<li class="col04">11.80元</li>	
-								</ul>
-							</td>
-							<td width="15%">33.60元</td>
-							<td width="15%">已付款</td>
-							<td width="15%"><a href="#" class="oper_btn">查看物流</a></td>
-						</tr>
-					</tbody>
-				</table>
+                </ul>
 
-				<div class="pagenation">
-					<a href="#"><上一页</a>
-					<a href="#" class="active">1</a>
-					<a href="#">2</a>
-					<a href="#">3</a>
-					<a href="#">4</a>
-					<a href="#">5</a>
-					<a href="#">下一页></a>
-				</div>
-		</div>
-	</div>
+                <table class="order_list_table w980">
+                    <tbody>
+                    <tr>
+                        <td width="55%" id="xj">
+                            {% for pdetail in p %}
 
+                                <ul class="order_goods_list clearfix">
+                                    <li class="col01"><img src="/static/{{ pdetail.goods.gpic }}"></li>
+                                    <li class="col02">{{ pdetail.goods.gname }}<em
+                                            id="price">{{ pdetail.price }}元/{{ pdetail.goods.gunit }}</em>
+                                    </li>
+                                    <li class="col03">{{ pdetail.count }}</li>
+                                    <li class="col04">11.80元</li>
+                                </ul>
+
+                            {% endfor %}
+
+                        </td>
+                        <td width="15%" id="total">33.60元</td>
+                        {% if p.0.order.oIsPay == 0 %}
+                            <td width="15%">待付款</td>
+                            <td width="15%"><a href="/user/pay/{{ p.0.order_id }}/{{ page.number }}/" class="oper_btn">去付款</a></td>
+                        {% else %}
+                            <td width="15%">已支付</td>
+                            <td width="15%"><a href="#" class="oper_btn">查看物流</a></td>
+                        {% endif %}
+
+                    </tr>
+                    </tbody>
+                </table>
+            {% endfor %}
+
+            <div class="pagenation">
+                {% if page.has_previous %}
+                    <a href="/user/center/{{ page.previous_page_number }}/">
+                        <上一页
+                    </a>
+                {% endif %}
+                {% for page1 in paginator.page_range %}
+                    {% if page1 == page.number %}
+                        <a href="/user/center/{{ page1 }}/" class="active">{{ page1 }}</a>
+                    {% else %}
+                        <a href="/user/center/{{ page1 }}/">{{ page1 }}</a>
+                    {% endif %}
+
+                {% endfor %}
+                {% if page.has_next %}
+                    <a href="/user/center/{{ page.next_page_number }}/">下一页></a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="/static/js/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript">
+        function total() {
+            $('#total').each(function () {
+                var total = 0;
+                $('.col04').each(function () {
+                    var str = $(this).prev().prev().find('em').text();
+                    var price = parseInt(str.substr(0, str.indexOf('元')));
+                    var num = parseInt($(this).prev().text());
+                    var xj = price * num;
+                    $(this).text(xj.toFixed(2));
+                    total += xj;
+                });
+
+                $(this).text(total.toFixed(2));
+            });
+
+        }
+
+        $(function () {
+            total();
+        })
+    </script>
 {% endblock body %}

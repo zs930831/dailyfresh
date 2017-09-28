@@ -8,6 +8,8 @@ from df_cart import models
 # Create your views here.
 @ud.login_dec
 def cart(request):
+    if request.is_ajax():
+        return JsonResponse({'status': 200})
     userid=request.session['user_id']
     carts=models.Cart.objects.filter(user_id=userid)
     c = {'page_name': 1, 'cart_name': 1,
@@ -20,11 +22,14 @@ def add(request,gid,count):
     gid=int(gid)
     count=int(count)
     userid=request.session['user_id']
-    #如果此商品存在就数量加一，不然就创建,carts为Cart类型的集合
+    #如果此商品存在就数量加count，不然就创建,carts为Cart类型的集合
     carts=models.Cart.objects.filter(user_id=userid,goods_id=gid)
     if len(carts)>=1:
         cart=carts[0]
-        cart.count+=1
+        if(count<=cart.goods.gstock):
+            cart.count+=count
+        else:
+            cart.count=cart.goods.gstock
     else:
         cart=models.Cart()
         cart.count=1
@@ -32,8 +37,8 @@ def add(request,gid,count):
         cart.user_id=userid
     cart.save()
     if request.is_ajax():
-        count=models.Cart.objects.filter(user_id=userid).count()
-        return JsonResponse({'count':count})
+        count1=models.Cart.objects.filter(user_id=userid).count()
+        return JsonResponse({'count':count1})
     else:
         return redirect('/cart/')
 

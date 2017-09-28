@@ -1,0 +1,107 @@
+{% extends "base_info.html" %}
+{% block head %}
+    <script src="/static/js/jquery-1.12.4.min.js"></script>
+{% endblock head %}
+{% block body %}
+    <div class="navbar_con">
+        <div class="navbar clearfix">
+            <div class="subnav_con fl">
+                <h1>全部商品分类</h1>
+                <span></span>
+                <ul class="subnav">
+                    <li><a href="#" class="fruit">新鲜水果</a></li>
+                    <li><a href="#" class="seafood">海鲜水产</a></li>
+                    <li><a href="#" class="meet">猪牛羊肉</a></li>
+                    <li><a href="#" class="egg">禽类蛋品</a></li>
+                    <li><a href="#" class="vegetables">新鲜蔬菜</a></li>
+                    <li><a href="#" class="ice">速冻食品</a></li>
+                </ul>
+            </div>
+            <ul class="navlist fl">
+                <li><a href="/">首页</a></li>
+                <li class="interval">|</li>
+                <li><a href="">手机生鲜</a></li>
+                <li class="interval">|</li>
+                <li><a href="">抽奖</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="main_wrap clearfix">
+        <div class="r_wrap fr clearfix">
+            <ul class="goods_type_list clearfix">
+
+                {% for i in page %}
+                    <li>
+                        <a href="/detail-{{ i.object.id }}/"><img src="/static/{{ i.object.gpic }}"></a>
+                        <input id=cnum value="{{ i.object.id }}" style="display: none">
+                        <h4><a href="/detail-{{ i.object.id }}/">{{ i.object.gname }}</a></h4>
+                        <div class="operate">
+                            <span class="prize">￥{{ i.object.gprice }}</span>
+                            <span class="unit">{{ i.object.gprice }}/{{ i.object.gunit }}</span>
+                            <a href='javascript:;' id="add_cart" class="add_goods" title="加入购物车"></a>
+                        </div>
+                    </li>
+                {% endfor %}
+
+            </ul>
+
+            <div class="pagenation">
+                {% if page.has_previous %}
+                    <a href="/search/?q={{ query }}&amp;page={{ page.previous_page_number }}/">
+                        <上一页
+                    </a>
+                {% endif %}
+                {% for page1 in paginator.page_range %}
+                    {% if page1 == page.number %}
+                        <a href="/search/?q={{ query }}&amp;page={{ page1 }}" class="active">{{ page1 }}</a>
+                    {% else %}
+                        <a href="/search/?q={{ query }}&amp;page={{ page1 }}">{{ page1 }}</a>
+                    {% endif %}
+
+                {% endfor %}
+                {% if page.has_next %}
+                    <a href="/search/?q={{ query }}&amp;page={{ page.next_page_number }}">下一页></a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <script>
+        {#        var $add_x = $('#add_cart').offset().top;#}
+        {#        var $add_y = $('#add_cart').offset().left;#}
+        {##}
+        {#        var $to_x = $('#show_count').offset().top;#}
+        {#        var $to_y = $('#show_count').offset().left;#}
+        {##}
+        {#        $(".add_jump").css({'left': $add_y + 80, 'top': $add_x + 10, 'display': 'block'});#}
+        {#        $('#add_cart').click(function () {#}
+        {#            var cnum = $('#cnum').val();#}
+        {#            $(".add_jump").stop().animate({#}
+        {#                'left': $to_y + 7,#}
+        {#                'top': $to_x + 7,#}
+        {#                "fast": function () {#}
+        {#                    $(".add_jump").fadeOut('fast', function () {#}
+        {#                    });#}
+        {#                }#}
+        {#            });#}
+        {#            $.ajax({#}
+        {#                url: '/cart/add' + cnum + '_1',#}
+        {#                type: 'get',#}
+        {#                success: function (data) {#}
+        {#                    $('.goods_count').text(data.count);#}
+        {#                }#}
+        {#            });#}
+        {#        });#}
+
+
+        $('.add_goods').click(function () {
+            var cnum = $('#cnum').val();
+            $.ajax({
+                url: '/cart/add' + cnum + '_1',
+                type: 'get',
+                success: function (data) {
+                    $('.goods_count').text(data.count);
+                }
+            })
+        })
+    </script>
+{% endblock body %}

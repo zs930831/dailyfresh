@@ -10,7 +10,8 @@ urlpatterns = [
     url(r'^register_handler/$',views.register_handler),
     url(r'^login_handler/$',views.login_handler),
     url(r'^info/$',views.info),
-    url(r'^center/$',views.center),
+    url(r'^center/(\d+)/$',views.center),
+    url(r'^pay/(\d+)/(\d+)/$',views.pay),
     url(r'^address/$',views.adress),
     url(r'^orm/$',views.orm),
 ]
